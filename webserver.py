@@ -15,9 +15,13 @@ session = DBSession()
 
 class WebServerHandler(BaseHTTPRequestHandler):
     def do_GET(self):
+        # set path
         if self.path.endswith("/restaurants"):
+            # query to fetch all restaurant data
             restaurants = session.query(Restaurant).all()
+            #shows successful get request
             self.send_response(200)
+            #send header type
             self.send_header('Content-type',     'text/html')
             self.end_headers()
             output=""
@@ -29,7 +33,7 @@ class WebServerHandler(BaseHTTPRequestHandler):
                 output+="<br/>"
                 output+="<a href = '/restaurants/%s/edit' > Edit </a>" % restaurant.id
                 output+="<br/>"
-                output+="<a href = '#' > Delete </a>"
+                output+="<a href = '/restaurants/%s/delete' > Delete </a>"
                 output+="<br/>"
 
             output+="</body></html>"
