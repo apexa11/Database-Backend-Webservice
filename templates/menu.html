@@ -21,13 +21,17 @@
 <br>
 <p> {{items.description}} </p>
 <br>
-</div>
-    {% endfor %}
+
 
     <a href="{{url_for('editMenuItem',restaurant_id = restaurant.id,
      menu_id = items.id)}}">Edit </a>
+     <br />
     <a href="{{url_for('deleteMenuItem',restaurant_id = restaurant.id,
     menu_id = items.id)}}">Delete </a>
+    <hr>
+
+</div>
+    {% endfor %}
 
 </body>
 </html>
