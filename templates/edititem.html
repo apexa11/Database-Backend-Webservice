@@ -3,13 +3,14 @@
 <h1> Edit Items </h1>
 
 <form action="{{url_for('editMenuItem',restaurant_id = restaurant_id,
-     menu_id = items.id)}}"
+     menu_id = item.id)}}"
 method="POST">
 
 <p> Name: </p>
-<input type="text" size=30 name="name" placehlder = {{"items.name"}}>
+<input type="text" size=30 name="name" placehlder = {{"item.name"}}>
 <input type="submit" value="Edit" >
-<a href="{{url_for('restaurantMenu',restaurant_id = items.restaurant_id, menu_id = items.id)}}">Cancle</a>
+
+<a href="{{url_for('restaurantMenu',restaurant_id = item.restaurant_id)}}">Cancle</a>
 </form>
 
 

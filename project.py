@@ -55,11 +55,11 @@ def editMenuItem(restaurant_id, menu_id):
         session.commit()
         flash('new item edited')
         return redirect(url_for('restaurantMenu',
-                        restaurant_id=restaurant.id))
+                        restaurant_id=restaurant_id))
     else:
         return render_template('edititem.html',
-                               restaurant_id=restaurant.id,
-                               menu_id=menu_id, e=editItem)
+                               restaurant_id=restaurant_id,
+                               menu_id=menu_id, item=editItem)
 
 
 # DELETE
@@ -73,9 +73,9 @@ def deleteMenuItem(restaurant_id, menu_id):
         session.commit()
         flash('item deleted')
         return redirect(url_for('restaurantMenu',
-                        restaurant_id=restaurant.id))
+                        restaurant_id=restaurant_id))
     else:
-        return render_template('deleteitem.html', d=deleteItem)
+        return render_template('deleteitem.html', item=deleteItem,restaurant_id = restaurant_id)
 
 if __name__ == '__main__':
     app.secret_key = 'super_secret_key'
