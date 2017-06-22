@@ -1,6 +1,6 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
-from flask import Flask, render_template, request, url_for
+from flask import Flask, render_template, request, url_for ,redirect, flash
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from database_setup import Restaurant, Base, MenuItem
@@ -16,7 +16,7 @@ session = DBSession()
 # import database
 
 @app.route('/')
-@app.route('/restaurant/<int:restaurant_id>/menu')
+@app.route('/restaurant/<int:restaurant_id>')
 def restaurantMenu(restaurant_id):
     restaurant = session.query(Restaurant).filter_by(id=restaurant_id).one()
     menu = session.query(MenuItem).filter_by(restaurant_id=restaurant.id).all()
@@ -26,13 +26,12 @@ def restaurantMenu(restaurant_id):
 
 # NEW-MENU
 
-@app.route('/restaurant/<int:restaurant_id>/new', methods=['GET', 'POST'
-           ])
+@app.route('/restaurant/<int:restaurant_id>/new', methods=['GET', 'POST'])
 def newMenuItem(restaurant_id):
 
     if request.method == 'POST':
         newItem = MenuItem(name=request.form['name'],
-                           restaurant_id=restaurant.id)
+                           restaurant_id=restaurant_id)
         session.add(newItem)
         session.commit()
         flash('new item created')
