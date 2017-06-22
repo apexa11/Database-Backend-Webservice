@@ -33,6 +33,7 @@ class WebServerHandler(BaseHTTPRequestHandler):
             output += '<html><body>'
             output += "<a href = '/restaurants/new'> Make New Restaurant Here </a>"
             output += '<br/>'
+            output+= '<hr/>'
             for restaurant in restaurants:
                 output += restaurant.name
                 output += '<br/>'
@@ -40,6 +41,7 @@ class WebServerHandler(BaseHTTPRequestHandler):
                 output += '<br/>'
                 output += "<a href = '/restaurants/%s/delete' > Delete </a>" % restaurant.id
                 output += '<br/>'
+                output+= '<hr/>'
 
             output += '</body></html>'
             self.wfile.write(output)
@@ -82,11 +84,11 @@ class WebServerHandler(BaseHTTPRequestHandler):
         if self.path.endswith('/delete'):
             restaurantsIdPath = self.path.split('/')[2]
             myRestaurantQuery = session.query(Restaurant).filter_by(id=restaurantsIdPath).one()
-            if myRestaurantQuery != []:
+            if myRestaurantQuery :
                 self.send_response(200)
                 self.send_header('Content-type', 'text/html')
                 self.end_headers()
-                output += ''
+                output = ''
                 output += '<html><body>'
                 output += '<h1>Are you sure want to delete %s?' % myRestaurantQuery.name
                 output += '</h1>'
@@ -173,7 +175,7 @@ class WebServerHandler(BaseHTTPRequestHandler):
 
 def main():
     try:
-        port = 2210
+        port = 8089
         server = HTTPServer(('', port), WebServerHandler)
         print 'web server running on %s' % port
         server.serve_forever()
