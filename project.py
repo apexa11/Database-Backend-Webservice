@@ -1,6 +1,6 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
-from flask import Flask, render_template, request, url_for ,redirect, flash
+from flask import Flask, render_template, request, url_for ,redirect, flash,jsonify
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from database_setup import Restaurant, Base, MenuItem
@@ -11,6 +11,20 @@ engine = create_engine('sqlite:///restaurantmenu.db')
 Base.metadata.bind = engine
 DBSession = sessionmaker(bind=engine)
 session = DBSession()
+
+#making API Endpoint (GET Request)
+@app.route('/restaurant/<int:restaurant_id>/menu/JSON')
+def restaurantMenuJson(restaurant_id):
+    restaurant = session.query(Restaurant).filter_by(id=restaurant_id).one()
+    menu = session.query(MenuItem).filter_by(restaurant_id=restaurant.id).all()
+    return jsonify(MenuItems=[i.serialize for i in menu])
+
+@app.route('/restaurant/<int:restaurant_id>/menu/<int:menu_id>/JSON')
+def MenuJson(restaurant_id,menu_id):
+    menuItem = session.query(MenuItem).filter_by(id=menu_id).one()
+    return jsonify(MenuItems= menuItem.serialize)
+
+
 
 
 # import database
