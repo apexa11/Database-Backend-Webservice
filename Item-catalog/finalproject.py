@@ -9,35 +9,35 @@ session = DBsession()
 
 app = Flask(__name__)
 
-@app.route()
+@app.route('/restaurants')
 def ShowRestaurants():
     return "restaurants"
 
-@app.route()
+@app.route('/restaurant/<int:restaurant_id>/new')
 def NewRestaurnt():
     return "newrestaurant"
 
-@app.route()
+@app.route('/restaurant/<int:restaurant_id>/edit')
 def EditRestaurant():
     return "editrestaurant"
 
-@app.route()
+@app.route('/restaurant/<int:restaurant_id>/delete')
 def DeleteRestaurant():
     return "deleterestaurant"
 
-@app.route()
+@app.route('/restaurant/<int:restaurant_id>/menu')
 def ShowMenu():
     return "showmenu"
 
-@app.route()
+@app.route('/restaurant/<int:restaurant_id>/new')
 def NewMenu():
     return "newmenu"
 
-@app.route()
+@app.route('/restaurant/<int:restaurant_id>/<int:menu_id>/edit')
 def EditMenu():
     return "editmenu"
 
-@app.route()
+@app.route('/restaurant/<int:restaurant_id>/<int:menu_id>/delete')
 def DeleteMenu():
     return "deletemenu"
 
