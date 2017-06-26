@@ -11,6 +11,7 @@ app = Flask(__name__)
 
 @app.route('/restaurants')
 def ShowRestaurants():
+    restaurants = session.query(Restaurant).all()
     return "restaurants"
 
 @app.route('/restaurant/<int:restaurant_id>/new')
